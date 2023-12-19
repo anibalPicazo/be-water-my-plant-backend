@@ -10,9 +10,16 @@ app.use(express.static('public'))
 app.use(express.json())
 
 dbConnection()
+const corsOptions = {
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+    allowedHeaders: 'Content-Type, Authorization',
+};
 
-app.use(cors())
-
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/exercise', require('./routes/exercise'))
 app.use('/api/musclegroup', require('./routes/musclegroup'))
